@@ -1,0 +1,30 @@
+---
+interface Props {
+  education: {
+    id: number;
+    title: string;
+    institution: string;
+    period: string;
+  };
+}
+
+const { education } = Astro.props;
+---
+
+<div class="col-12" data-aos="fade-up" data-aos-delay="600">
+  <div class="bg-base p-4 rounded-4 shadow-effect">
+    <h4>{education.title}</h4>
+    <p class="text-brand mb-0">{education.institution} ({education.period})</p>
+  </div>
+</div>
+
+<style>
+  h4 {
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+  }
+
+  .text-brand {
+    color: var(--color-brand);
+  }
+</style>

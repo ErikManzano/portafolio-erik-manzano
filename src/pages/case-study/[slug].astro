@@ -1,0 +1,73 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { client } from "../../lib/sanity.js";
+import ProjectCaseStudy from "../../components/case-study/ProjectCaseStudy.astro";
+
+export async function getStaticPaths() {
+  const query = `*[_type == "caseStudy" && defined(id.current)]{
+    "slug": id.current
+  }`;
+
+  const projects = await client.fetch(query);
+
+  return projects.map((project: any) => ({
+    params: { slug: project.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+
+const query = `
+*[_type == "caseStudy" && id.current == $slug][0]{
+  title,
+  summary,
+  technologies,
+  challenge {
+    problem,
+    user
+  },
+  solution,
+  aiIntegration[] {
+    tool,
+    usage
+  },
+  metrics[] {
+    label,
+    value
+  },
+  "heroImage": heroImage.asset->url,
+  links {
+    live,
+    repo
+  },
+  "gallery": gallery[] {
+    caption,
+    category,
+    "image": image.asset->url
+  }
+}
+`;
+
+const project = await client.fetch(query, { slug: String(slug) });
+---
+
+<Layout title={project ? `${project.title} - Case Study` : "Case Study"}>
+  <div id="content-wrapper">
+    {
+      project ? (
+        <ProjectCaseStudy project={project} />
+      ) : (
+        <div class="container py-5 text-center">
+          <h1>Caso de estudio no encontrado</h1>
+          <p>
+            Lo sentimos, el caso de estudio que buscas no existe o ha sido
+            movido.
+          </p>
+          <a href="/" class="btn btn-brand">
+            Volver al inicio
+          </a>
+        </div>
+      )
+    }
+  </div>
+</Layout>

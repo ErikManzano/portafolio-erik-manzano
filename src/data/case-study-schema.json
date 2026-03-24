@@ -1,0 +1,318 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "title": "Plataforma de Gestión Logística",
+      "description": "Rediseño completo de la plataforma de gestión logística para empresas medianas, enfocado en simplificar operaciones y reducir tiempos de procesamiento.",
+      "year": "2023",
+      "role": "UX/UI Designer",
+      "industry": "Logística",
+      "context": "Empresa de soluciones logísticas con 200+ clientes activos necesitaba modernizar su plataforma legacy para mejorar experiencia de usuarios y reducir fricción operativa.",
+      "problem": {
+        "title": "Operaciones complejas y confusas",
+        "description": "El sistema existente presentaba múltiples pantallas con información desorganizada, navegación no intuitiva y procesos que requerían 15+ pasos para tareas básicas.",
+        "businessImpact": "Los clientes reportaban 40% de aumento en tiempos de procesamiento, causando pérdida de competitividad. Tasa de abandono: 25% en primeros 30 días."
+      },
+      "operativeContext": {
+        "environment": "Plataforma web SaaS accedida por usuarios administrativos y operarios en tiempo real",
+        "userProfile": [
+          {
+            "segment": "Administradores",
+            "count": "5-10 por empresa",
+            "behaviors": "Acceso diario, configuración de flujos, análisis de reportes"
+          },
+          {
+            "segment": "Operarios",
+            "count": "20-100 por empresa",
+            "behaviors": "Uso intenso durante turno laboral, entrada de datos, seguimiento de envíos"
+          }
+        ]
+      },
+      "systemOperations": [
+        {
+          "name": "Creación de Órdenes",
+          "description": "Iniciar nuevas órdenes de envío con automatización inteligente"
+        },
+        {
+          "name": "Asignación de Rutas",
+          "description": "Distribuir automáticamente según disponibilidad y proximidad"
+        },
+        {
+          "name": "Seguimiento Real-time",
+          "description": "Monitorear estado de envíos y ubicación de drivers"
+        },
+        {
+          "name": "Gestión de Inventario",
+          "description": "Control de stock centralizado por ubicación"
+        },
+        {
+          "name": "Generación de Reportes",
+          "description": "Análisis de performance y KPIs operativos"
+        }
+      ],
+      "auditFindings": [
+        {
+          "issue": "Navegación fragmentada",
+          "severity": "alta",
+          "description": "18 pasos para crear una orden integrada de múltiples clientes"
+        },
+        {
+          "issue": "Visualización de datos confusa",
+          "severity": "alta",
+          "description": "Múltiples tablas con la misma información en formatos diferentes"
+        },
+        {
+          "issue": "Falta de retroalimentación en tiempo real",
+          "severity": "media",
+          "description": "Los usuarios no sabían si sus acciones se completaron exitosamente"
+        },
+        {
+          "issue": "Diseño no responsivo",
+          "severity": "media",
+          "description": "Muchos accesos desde tablets pero interfaz diseñada solo para desktop"
+        }
+      ],
+      "interactionArchitecture": {
+        "structure": "Dashboard centralizado con acceso rápido a operaciones principales. Sidebar navegable con menú contextual según rol.",
+        "navigation": "Breadcrumbs + Sidebar + Menú contextual + Acciones flotantes para operaciones críticas",
+        "flows": "Flujos lineales para tareas nuevas, acceso rápido a históricos y búsqueda omnipresente"
+      },
+      "uiStrategy": {
+        "principles": [
+          {
+            "principle": "Progressive Disclosure",
+            "description": "Mostrar solo información relevante según contexto del usuario"
+          },
+          {
+            "principle": "Information Hierarchy",
+            "description": "Jerarquía clara de datos: crítico > importante > contextual"
+          },
+          {
+            "principle": "Consistency",
+            "description": "Patrones de interacción uniformes en toda la plataforma"
+          },
+          {
+            "principle": "One-Click Access",
+            "description": "Acciones frecuentes a máximo 1 click de distancia"
+          }
+        ],
+        "decisions": [
+          "Palette: Púrpura principal (#7c4deb) para acciones, gris neutro para datos",
+          "Tipografía: Bai Jamjuree para jerarquía, Roboto Mono para datos técnicos",
+          "Espaciado: Sistema modular 8px para consistencia visual"
+        ]
+      },
+      "impact": [
+        {
+          "metric": "Reducción en tiempo de operación",
+          "value": "65% menos pasos",
+          "description": "Tareas que antes requerían 15+ pasos ahora requieren 5"
+        },
+        {
+          "metric": "Adopción de usuarios",
+          "value": "92% en 60 días",
+          "description": "vs 45% que la versión anterior alcanzaba en igual período"
+        },
+        {
+          "metric": "Eficiencia operativa",
+          "value": "+34% productividad",
+          "description": "Medida en órdenes procesadas por usuario/día"
+        },
+        {
+          "metric": "Retención de clientes",
+          "value": "Reducción 95% en churn",
+          "description": "De 25% a 1.2% en primeros 30 días"
+        }
+      ],
+      "lessons": [
+        {
+          "title": "Validación con usuarios reales es crítica",
+          "insight": "Los supuestos del product team se desviaron significativamente de necesidades reales operarios"
+        },
+        {
+          "title": "Simplificación > Agregación",
+          "insight": "Usuarios preferían 3 pantallas simples vs 1 compleja. Menos no siempre es más."
+        },
+        {
+          "title": "Acciones contextuales > Menús profundos",
+          "insight": "Botones flotantes según contexto aumentaron engagement vs menús tradicionales"
+        },
+        {
+          "title": "Real-time feedback genera confianza",
+          "insight": "Sound + visual feedback redujo consultas de soporte en 40%"
+        }
+      ],
+      "nextSteps": [
+        {
+          "phase": "Q1 2024",
+          "items": [
+            "Implementar predicción de demanda con ML",
+            "Integración con sistemas de terceros (contabilidad, CRM)"
+          ]
+        },
+        {
+          "phase": "Q2 2024",
+          "items": [
+            "Versión mobile native para operarios de campo",
+            "Dashboard analítico avanzado con BI"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "AMC Doméstico",
+      "description": "Sitio web mobile-first para solicitar servicios de logística y entregas domésticas con interfaz intuitiva y moderna.",
+      "year": "2024 - 2026 (Presente)",
+      "role": "UX/UI Designer & Frontend Developer",
+      "industry": "Logística",
+      "context": "Empresa de logística local necesitaba plataforma web para que clientes puedan solicitar servicios de entrega a domicilio de forma simple y directa.",
+      "problem": {
+        "title": "Falta de canal digital para solicitudes",
+        "description": "Clientes debían contactar por teléfono o WhatsApp para solicitar entregas, generando lista de espera y confusión. No había forma de trackear entregas en tiempo real.",
+        "businessImpact": "Pérdida de 30% de clientes potenciales mensuales. Promedio de 2 horas en responder solicitudes. Recarga operativa en equipo de atención."
+      },
+      "operativeContext": {
+        "environment": "Web responsive mobile-first con carousel dinámico y formularios interactivos",
+        "userProfile": [
+          {
+            "segment": "Clientes finales",
+            "count": "80% acesos móviles",
+            "behaviors": "Solicitar entregas rápidamente desde móvil, revisar estado, contacto de soporte"
+          },
+          {
+            "segment": "Equipo operativo",
+            "count": "10-15 usuarios internos",
+            "behaviors": "Recibir solicitudes, asignar entregas, actualizar estado"
+          }
+        ]
+      },
+      "systemOperations": [
+        {
+          "name": "Solicitar entrega",
+          "description": "Formulario para crear nueva solicitud con origen, destino y tipo de carga"
+        },
+        {
+          "name": "Ver historial",
+          "description": "Tabla con entregas previas y estado actual"
+        },
+        {
+          "name": "Tracking en vivo",
+          "description": "Mapa y estado actualizado de la entrega"
+        },
+        {
+          "name": "Contacto y soporte",
+          "description": "Formulario de contacto para consultas y problemas"
+        }
+      ],
+      "auditFindings": [
+        {
+          "issue": "Proceso manual de atención era lento",
+          "severity": "alta",
+          "description": "Equipo no podía responder en tiempo real a todas las solicitudes"
+        },
+        {
+          "issue": "Falta de visualización de estado",
+          "severity": "alta",
+          "description": "Clientes no sabían en qué momento estaba su entrega"
+        },
+        {
+          "issue": "Diseño no optimizado para móvil",
+          "severity": "alta",
+          "description": "80% de usuarios accedían desde dispositivos móviles sin experiencia optimizada"
+        },
+        {
+          "issue": "Sin comunicación automática",
+          "severity": "media",
+          "description": "No había confirmación automática ni notificaciones de cambios"
+        }
+      ],
+      "interactionArchitecture": {
+        "structure": "OnePage con secciones bien definidas: Hero, Servicios, Cómo funciona, Formulario, Contacto",
+        "navigation": "Menú hamburguesa flotante responsive + Navbar fija en desktop. CTA flotante para solicitar entrega",
+        "flows": "Solicitud → Confirmación → Tracking → Historial. Acceso rápido a formulario desde cualquier sección"
+      },
+      "uiStrategy": {
+        "principles": [
+          {
+            "principle": "Mobile-First",
+            "description": "Diseñado primero para móvil, escalado a desktop sin perder funcionalidad"
+          },
+          {
+            "principle": "Simplicidad Visual",
+            "description": "Formularios claros, CTA destacados, información no abrumadora"
+          },
+          {
+            "principle": "Acceso Rápido",
+            "description": "Botón flotante siempre visible para nuevas solicitudes"
+          }
+        ],
+        "decisions": [
+          "Carousel con Splide.js para mostrar servicios destacados",
+          "Animaciones AOS.js para engagement al scroll",
+          "Bootstrap 5 para grid responsivo y componentes confiables",
+          "Colores cálidos (naranja/rojo) para urgencia y confianza",
+          "Tipografía grande y clara para legibilidad en móvil"
+        ]
+      },
+      "impact": [
+        {
+          "metric": "Solicitudes digitales",
+          "value": "+85%",
+          "description": "Incremento en solicitudes por web vs teléfono en 2 meses"
+        },
+        {
+          "metric": "Tiempo de respuesta",
+          "value": "-90%",
+          "description": "Reducción de 2 horas a 5 minutos promedio"
+        },
+        {
+          "metric": "Satisfacción del cliente",
+          "value": "4.8/5★",
+          "description": "Feedback positivo en facilidad de uso"
+        },
+        {
+          "metric": "Reducción de carga operativa",
+          "value": "-60%",
+          "description": "Equipo puede dedicarse a operaciones después de automatizar atención inicial"
+        }
+      ],
+      "lessons": [
+        {
+          "title": "Mobile-first es obligatorio, no opcional",
+          "insight": "Cuando el 80% de usuarios accede desde móvil, ignorar ese canal cuesta dinero"
+        },
+        {
+          "title": "CTA flotante genera conversión",
+          "insight": "El botón flotante de 'Solicitar entrega' fue 3x más clicado que links en menú"
+        },
+        {
+          "title": "Animaciones mejoran percepción de calidad",
+          "insight": "AOS.js hizo que clientes percibieran sitio como 'moderno' sin perder velocidad"
+        },
+        {
+          "title": "Simplicidad en formularios = conversión",
+          "insight": "Reducir de 8 a 4 campos aumentó completitud de solicitudes en 65%"
+        }
+      ],
+      "nextSteps": [
+        {
+          "phase": "Q2 2024",
+          "items": [
+            "Integración con API de tracking GPS en tiempo real",
+            "Sistema de notificaciones SMS/Email automáticas",
+            "Dashboard para equipo operativo"
+          ]
+        },
+        {
+          "phase": "Q3 2024",
+          "items": [
+            "App móvil nativa iOS/Android",
+            "Sistema de reviews y ratings",
+            "Programa de referidos"
+          ]
+        }
+      ]
+    }
+  ]
+}

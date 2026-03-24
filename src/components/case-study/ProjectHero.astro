@@ -1,0 +1,186 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  year: string;
+  role: string;
+  industry: string;
+  context: string;
+  technologies?: string[];
+  links?: {
+    live?: string;
+    repo?: string;
+  };
+}
+
+const {
+  title,
+  description,
+  year,
+  role,
+  industry,
+  context,
+  technologies,
+  links,
+} = Astro.props;
+---
+
+<section class="case-study-hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <div class="hero-content" data-aos="fade-up">
+          <span class="badge-year">{year}</span>
+          <h1 class="hero-title mb-4">{title}</h1>
+          <p class="hero-description mb-5">{description}</p>
+
+          <div class="meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">Rol</span>
+              <p class="meta-value">{role}</p>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Tecnologías</span>
+              <p class="meta-value">{industry}</p>
+            </div>
+          </div>
+
+          {
+            links && (links.live || links.repo) && (
+              <div class="mt-4 d-flex gap-3">
+                {links.live && (
+                  <a
+                    href={links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-brand"
+                  >
+                    Live Demo <i class="las la-external-link-alt" />
+                  </a>
+                )}
+                {links.repo && (
+                  <a
+                    href={links.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-outline-brand"
+                  >
+                    GitHub <i class="lab la-github" />
+                  </a>
+                )}
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-lg-10">
+        <div class="context-box" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="context-title">Contexto del Proyecto</h3>
+          <p class="context-text">{context}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-study-hero {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 80px !important;
+  }
+
+  .badge-year {
+    display: inline-block;
+    background-color: var(--color-brand);
+    color: var(--color-base);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-heading);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--color-body);
+    opacity: 0.9;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .meta-item {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(164, 128, 247, 0.3);
+  }
+
+  .meta-label {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-brand);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-value {
+    font-size: 1.1rem;
+    color: var(--color-heading);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .context-box {
+    background: linear-gradient(
+      135deg,
+      rgba(164, 128, 247, 0.1),
+      rgba(124, 77, 235, 0.05)
+    );
+    border-left: 4px solid var(--color-brand);
+    padding: 2rem;
+    border-radius: 0.5rem;
+  }
+
+  .context-title {
+    color: var(--color-brand);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+
+  .context-text {
+    color: var(--color-body);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+    }
+  }
+</style>

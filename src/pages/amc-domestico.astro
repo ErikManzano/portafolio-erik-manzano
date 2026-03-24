@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import ProjectCaseStudy from "../components/case-study/ProjectCaseStudy.astro";
+import { getCaseStudy } from "../lib/sanity.js";
+
+// Fetch case study from Sanity CMS
+const project = await getCaseStudy('6');
+
+if (!project) {
+  return new Response('Case study not found', { status: 404 });
+}
+---
+
+<Layout title={`${project.title} - Case Study | Erik Manzano`}>
+  <div id="content-wrapper">
+    <Navbar />
+    
+    <section class="breadcrumb-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <a href="/#proyectos" class="breadcrumb-link">← Volver a Proyectos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <ProjectCaseStudy project={project} />
+
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  .breadcrumb-section {
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 80px;
+  }
+
+  .breadcrumb-link {
+    color: var(--color-brand);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-link:hover {
+    color: #7c4deb;
+    transform: translateX(-4px);
+  }
+</style>

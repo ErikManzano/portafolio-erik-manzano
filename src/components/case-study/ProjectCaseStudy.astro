@@ -1,0 +1,96 @@
+---
+import ProjectHero from './ProjectHero.astro';
+import ProblemSection from './ProblemSection.astro';
+import SolutionSection from './SolutionSection.astro';
+import AIIntegrationSection from './AIIntegrationSection.astro';
+import ImpactSection from './ImpactSection.astro';
+import GallerySection from './GallerySection.astro';
+
+interface Props {
+  project: {
+    title: string;
+    summary: string;
+    technologies?: string[];
+    challenge?: {
+      problem?: string;
+      user?: string;
+    };
+    solution?: string;
+    aiIntegration?: Array<{
+      tool: string;
+      usage: string;
+    }>;
+    metrics?: Array<{
+      label: string;
+      value: string;
+    }>;
+    heroImage?: string;
+    links?: {
+      live?: string;
+      repo?: string;
+    };
+    gallery?: Array<{
+      image: string;
+      caption: string;
+      category?: string;
+    }>;
+  };
+}
+
+const { project } = Astro.props;
+---
+
+<div class="project-case-study">
+  <ProjectHero
+    title={project.title}
+    description={project.summary}
+    year={new Date().getFullYear().toString()}
+    role={project.challenge?.user || "UX/UI Designer"}
+    industry={project.technologies ? project.technologies.slice(0, 3).join(", ") : "Digital"}
+    context={project.challenge?.problem || project.summary}
+    technologies={project.technologies}
+    links={project.links}
+  />
+
+  {project.challenge && (
+    <ProblemSection
+      problem={project.challenge.problem || ""}
+      user={project.challenge.user || ""}
+    />
+  )}
+
+  {project.solution && <SolutionSection solution={project.solution} />}
+
+  {project.aiIntegration && project.aiIntegration.length > 0 && (
+    <AIIntegrationSection aiIntegration={project.aiIntegration} />
+  )}
+
+  {project.metrics && project.metrics.length > 0 && (
+    <ImpactSection impact={project.metrics.map(m => ({ metric: m.label, value: m.value, description: "" }))} />
+  )}
+
+  {project.gallery && project.gallery.length > 0 && (
+    <GallerySection images={project.gallery.map(g => ({ image: g.image, caption: g.caption, category: g.category || "Media" }))} />
+  )}
+</div>
+
+<style is:global>
+  .project-case-study {
+    width: 100%;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Animation utilities */
+  [data-aos] {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+
+  [data-aos].aos-animate {
+    opacity: 1;
+  }
+</style>

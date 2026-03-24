@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "position": "UX/UI DESIGNER / FULLSTACK DEVELOPER",
+    "company": "Fábrica de soluciones RAK",
+    "period": "junio 2024 - actualidad",
+    "responsibilities": [
+      "Diseñé la UX/UI del sistema AMC Doméstico de Aeroméxico Cargo (AICM T2). implementado en React.",
+      "Construí interfaces escalables mediante arquitectura de componentes y design systems.",
+      "Guié decisiones estratégicas de producto con stakeholders de Aeroméxico Cargo y Banco Azteca. ",
+      "Colabore en el desarrollo de un sistema RAG con Gemini AI para consultas sobre documentación interna.",
+      "Contribuí en backend y base de datos para habilitar nuevas funcionalidades."
+    ]
+  },
+  {
+    "id": 2,
+    "position": "JR FRONT END DEVELOPER / UI DESIGNER",
+    "company": "Enacment",
+    "period": "noviembre 2023 - junio 2024",
+    "responsibilities": [
+      "Desarrollo de componentes y vistas responsivas usando Angular y CSS/SASS para clientes como CONDUSEF, VivaAerobus, Gasolinerias Shell, Grupo Heineken y AISG.",
+      "Diseño y mantenimiento de componentes UI modulares y escalables para web y móvil.",
+      "Documentación técnica y diseño funcional en Coda.",
+      "Participación en reuniones ágiles bajo metodología SCRUM."
+    ]
+  },
+  {
+    "id": 3,
+    "position": "DATA ANALYST / DEVELOPER",
+    "company": "Nestlé Purina",
+    "period": "junio 2023 - noviembre 2023",
+    "responsibilities": [
+      "Diseñé y desplegué scripts en Python para automatizar la extracción de datos masivos desde SAP y la generación de dashboards de datos comerciales desde Excel a Power BI, reduciendo el tiempo de procesamiento en un 90% (de horas a minutos) y mejorando la precisión de los análisis a nivel nacional."
+    ]
+  }
+]

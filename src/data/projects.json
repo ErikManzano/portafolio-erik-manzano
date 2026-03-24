@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "RECORTES DE MÚSICA",
+    "description": "Blog dedicado a reseñas de música, arte y expresión personal",
+    "image": "/assets/images/blogmusica.png",
+    "url": "https://recortesdemusica-test.netlify.app/",
+    "features": [
+      "Diseño responsive con menú flotante",
+      "Desarrollado en Astro con React en el front y Sanity como CMS",
+      "Libreria de componentes y estilos desde cero con Figma"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "AMC Doméstico",
+    "description": "Sitio web mobile-first de ejemplo de una cafetería local que ofrece diversidad de bebidas y alimentos",
+    "image": "/assets/images/cafeteria.png",
+    "url": "/amc-domestico",
+    "features": [
+      "Carousel en loop en la portada",
+      "Galeria de imagenes creada con JavaScript",
+      "Programada con HTML, JavaScript, CSS y Bootstrap"
+    ]
+  }
+]

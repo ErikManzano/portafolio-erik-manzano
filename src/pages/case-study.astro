@@ -1,0 +1,103 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import ProjectCaseStudy from "../components/case-study/ProjectCaseStudy.astro";
+import Footer from "../components/Footer.astro";
+import { getCaseStudy } from "../lib/sanity.js";
+
+// Fetch case study from Sanity CMS (Plataforma de Gestión Logística with id "1")
+const project = await getCaseStudy('1');
+
+if (!project) {
+  return new Response('Case study not found', { status: 404 });
+}
+---
+
+<Layout title="Case Study - Plataforma de Gestión Logística | Erik Manzano">
+  <div id="content-wrapper">
+    <Navbar />
+    
+    <!-- Go Back Link -->
+    <section class="breadcrumb-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <a href="/#proyectos" class="breadcrumb-link">← Volver a Proyectos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case Study Component -->
+    <ProjectCaseStudy project={project} />
+
+    <!-- Related Projects Section (Future) -->
+    <section class="related-projects py-5">
+      <div class="container">
+        <div class="row pb-4">
+          <div class="col-lg-10">
+            <h2 class="section-title">Otros Proyectos</h2>
+            <p class="section-subtitle">Explora más casos de estudio</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-10">
+            <div class="coming-soon">
+              <p>Más proyectos en construcción...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  .breadcrumb-section {
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 80px;
+  }
+
+  .breadcrumb-link {
+    color: var(--color-brand);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-link:hover {
+    color: #7c4deb;
+    transform: translateX(-4px);
+  }
+
+  .related-projects {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-heading);
+  }
+
+  .section-subtitle {
+    color: var(--color-body);
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .coming-soon {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    color: var(--color-body);
+  }
+</style>

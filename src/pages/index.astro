@@ -1,0 +1,296 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import HeroSection from "../components/HeroSection.astro";
+import SanityCaseStudyCard from "../components/SanityCaseStudyCard.astro";
+import SanityProjectCard from "../components/SanityProjectCard.astro";
+import ExperienceCard from "../components/ExperienceCard.astro";
+import EducationCard from "../components/EducationCard.astro";
+import Footer from "../components/Footer.astro";
+
+import experience from "../data/experience.json";
+import education from "../data/education.json";
+import technologies from "../data/technologies.json";
+import { getCaseStudies, getProjects } from "../lib/sanity.js";
+
+const caseStudies = await getCaseStudies();
+const sanityProjects = await getProjects();
+---
+
+<Layout title="Erik Manzano - UX/UI Designer & Front End Developer">
+  <div id="content-wrapper">
+    <HeroSection />
+
+    <!-- CASOS DE ESTUDIO -->
+    <section id="casos-de-estudio" class="full-height px-lg-5 pt-5">
+      <div class="container">
+        <div class="row pb-4" data-aos="fade-up">
+          <div class="col-lg-8">
+            <h6 class="text-brand">PORTAFOLIO</h6>
+            <h1>CASOS DE ESTUDIO</h1>
+          </div>
+        </div>
+
+        <div class="row gy-5">
+          {caseStudies.length > 0 ? caseStudies.map((study: any) => (
+            <SanityCaseStudyCard caseStudy={study} />
+          )) : (
+            <p class="text-muted">Aún no hay casos de estudio publicados.</p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos" class="full-height px-lg-5">
+      <div class="container">
+        <div class="row pb-4" data-aos="fade-up">
+          <div class="col-lg-8">
+            <h6 class="text-brand">DESARROLLO</h6>
+            <h1>PROYECTOS WEB</h1>
+          </div>
+        </div>
+
+        <div class="row gy-5">
+          {sanityProjects.length > 0 ? sanityProjects.map((project: any) => (
+            <SanityProjectCard project={project} />
+          )) : (
+            <p class="text-muted">Aún no hay proyectos publicados.</p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMACIÓN -->
+    <section id="about" class="full-height px-lg-5">
+      <div class="container">
+        <div class="row pb-4" data-aos="fade-up">
+          <div class="col-lg-8">
+            <h6 class="text-brand">FORMACIÓN</h6>
+            <h1>EDUCACIÓN Y EXPERIENCIA</h1>
+          </div>
+        </div>
+
+        <div class="row gy-5">
+          <div class="col-lg-4">
+            <h3 class="mb-4" data-aos="fade-up" data-aos-delay="300">
+              Educación
+            </h3>
+            <div class="row gy-4">
+              {education.map((edu) => (
+                <EducationCard education={edu} />
+              ))}
+            </div>
+          </div>
+          
+          <!-- Experience Column -->
+          <div class="col-lg-8">
+            <h3 class="mb-4" data-aos="fade-up" data-aos-delay="300">
+              Experiencia
+            </h3>
+
+            <div class="row gy-4">
+              {experience.map((exp) => (
+                <ExperienceCard experience={exp} />
+              ))}
+            </div>
+          </div>
+        </div> <!-- End of Education/Experience Row -->
+
+        <!-- SKILLS SECTION -->
+        <div class="row mt-5" data-aos="fade-up" data-aos-delay="600">
+          <div class="col-12">
+            <div class="bg-base p-5 rounded-4 shadow-effect skills-card">
+              <h1 class="mb-5"><span class="text-brand">TOP</span> SKILLS & STACK</h1>
+              
+              <div class="row gy-4">
+                <!-- Frontend -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="skill-category">
+                    <div class="category-header border-frontend">
+                      <i class="bi bi-code-slash"></i>
+                      <h5>Frontend Engineering</h5>
+                    </div>
+                    <ul class="skill-list">
+                      <li>JavaScript (ES6+), TypeScript</li>
+                      <li>React · Vue · Angular</li>
+                      <li>HTML5 · CSS3</li>
+                      <li>Arquitectura basada en componentes</li>
+                      <li>Design Systems en producción</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="skill-category">
+                    <div class="category-header border-backend">
+                      <i class="bi bi-database"></i>
+                      <h5>Backend & Data</h5>
+                    </div>
+                    <ul class="skill-list">
+                      <li>Node.js · Express</li>
+                      <li>PHP · Laravel</li>
+                      <li>Python</li>
+                      <li>MySQL · MongoDB</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Design -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="skill-category">
+                    <div class="category-header border-design">
+                       <i class="bi bi-bezier2"></i>
+                      <h5>Product & UX Design</h5>
+                    </div>
+                    <ul class="skill-list">
+                      <li>UX/UI Design</li>
+                      <li>Design Systems · Design Tokens</li>
+                      <li>Wireframing · Prototyping</li>
+                      <li>Figma · Adobe XD</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- AI -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="skill-category active-ai">
+                    <div class="category-header border-ai">
+                      <i class="bi bi-robot"></i>
+                      <h5>AI / LLM Systems</h5>
+                    </div>
+                    <ul class="skill-list">
+                      <li>Desarrollo de sistemas RAG</li>
+                      <li>Integración de APIs de AI (Gemini, OpenAI, DeepSeek)</li>
+                      <li>UX para productos con IA</li>
+                      <li>Diseño de experiencias conversacionales</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Mobile -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="skill-category">
+                    <div class="category-header border-mobile">
+                      <i class="bi bi-phone"></i>
+                      <h5>Mobile</h5>
+                    </div>
+                    <ul class="skill-list">
+                      <li>React Native · Ionic · Swift</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="full-height px-lg-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <h1 class="display-4 fw-bold" data-aos="fade-up">
+              <span class="text-brand">¿QUIERES QUE TRABAJEMOS JUNTOS?</span> CONTACTAME
+            </h1>
+            <div data-aos="fade-up" data-aos-delay="600">
+              <a href="mailto:erikjonathanmanzano@gmail.com" class="btn btn-brand me-3">
+                ENVIAR UN CORREO
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  #content-wrapper {
+    position: relative;
+  }
+
+  h6.text-brand {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* SKILLS STYLING */
+  .skills-card {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .skill-category {
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+  }
+
+  .skill-category:hover {
+    background: rgba(164, 128, 247, 0.05);
+    transform: translateY(-5px);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--color-brand);
+  }
+
+  .category-header.border-frontend { border-color: var(--color-brand); }
+  .category-header.border-backend { border-color: #00b4d8; }
+  .category-header.border-design { border-color: #ff2d2d; }
+  .category-header.border-ai { border-color: #03ff75; }
+  .category-header.border-mobile { border-color: #ffb703; }
+
+  .category-header i {
+    font-size: 1.5rem;
+    color: var(--color-heading);
+  }
+
+  .category-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .skill-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--color-body);
+  }
+
+  .skill-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-brand);
+    font-weight: bold;
+    opacity: 0.5;
+  }
+
+  .active-ai {
+    border: 1px solid rgba(3, 255, 117, 0.2);
+    box-shadow: 0 0 20px rgba(3, 255, 117, 0.05);
+  }
+</style>

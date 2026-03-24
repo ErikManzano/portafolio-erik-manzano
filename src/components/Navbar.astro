@@ -1,0 +1,228 @@
+---
+const { pathname } = Astro.url;
+const isCaseStudy = pathname.includes("/case-study");
+---
+
+<nav class="navbar navbar-expand-lg site-navigation">
+  <div class="container flex-lg-column align-items-center justify-content-between p-lg-0">
+    <!-- BRAND / LOGO -->
+    <a class="navbar-brand mx-lg-auto mb-lg-5" href="/">
+      <span class="h3 fw-bold d-block d-lg-none m-0 text-white">Erik Manzano</span>
+      <img
+        src="/assets/images/pic1.jpg"
+        class="profile-pic d-none d-lg-block rounded-circle"
+        alt="Erik Manzano"
+      />
+    </a>
+
+    <!-- TOGGLER (Mobile Only) -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+      aria-label="Toggle navigation"
+    >
+      <span class="menu-text">MENÚ</span>
+    </button>
+
+    <!-- NAVIGATION CONTENT -->
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header d-lg-none border-bottom border-secondary">
+        <h5 class="offcanvas-title text-brand fw-bold" id="offcanvasNavbarLabel">
+          Erik Manzano
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      
+      <div class="offcanvas-body">
+        <ul class="navbar-nav flex-lg-column gap-3 gap-lg-4">
+          <li class="nav-item">
+            <a class="nav-link" href="/#home" data-bs-dismiss="offcanvas">Acerca de mi</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class={`nav-link ${isCaseStudy ? "active" : ""}`}
+              href="/#casos-de-estudio"
+              data-bs-dismiss="offcanvas"
+            >
+              Casos de Estudio
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/#proyectos" data-bs-dismiss="offcanvas">Proyectos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/#about" data-bs-dismiss="offcanvas">Formación y experiencia</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/#contacto" data-bs-dismiss="offcanvas">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* GLOBAL NAV LINK */
+  .nav-link {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff !important;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding: 0.6rem 1rem;
+    transition: color 0.3s ease;
+    opacity: 1 !important;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--color-brand) !important;
+  }
+
+  /* MOBILE (< 991px) */
+  @media (max-width: 991px) {
+    .site-navigation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 3005;
+      background: #121212 !important;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .offcanvas {
+      width: 300px !important;
+      background-color: #111111 !important;
+      border-left: 2px solid var(--color-brand) !important;
+      visibility: visible;
+    }
+
+    .offcanvas-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Vertical Center */
+      align-items: center;    /* Horizontal Center */
+      height: 100%;
+      padding: 2rem !important;
+    }
+
+    .navbar-nav {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem !important;
+    }
+
+    .nav-link {
+      font-size: 1.25rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  /* DESKTOP (>= 992px) */
+  @media (min-width: 992px) {
+    .site-navigation {
+      padding: 3rem 1rem;
+    }
+
+    .offcanvas {
+      visibility: visible !important;
+      transform: none !important;
+      position: static !important;
+      display: block !important;
+      background: transparent !important;
+      border: none !important;
+      width: 100% !important;
+      transition: none !important;
+      box-shadow: none !important;
+    }
+
+    .offcanvas-body {
+      padding: 0 !important;
+      overflow: visible !important;
+    }
+
+    .nav-link.active::before {
+      content: "";
+      position: absolute;
+      left: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 18px;
+      background-color: var(--color-brand);
+      box-shadow: 0 0 10px var(--color-brand);
+      border-radius: 2px;
+    }
+  }
+
+  /* UTILS */
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    border: 2px solid var(--color-brand);
+    padding: 4px;
+    background: #111;
+  }
+
+  .navbar-toggler {
+    border: 1px solid rgba(164, 128, 247, 0.5) !important;
+    padding: 8px 16px !important;
+    background: transparent !important;
+  }
+
+  .menu-text {
+    color: var(--color-brand);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: 0.85rem;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const offcanvasElement = document.getElementById('offcanvasNavbar');
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetHref = link.getAttribute('href');
+        // @ts-ignore
+        const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+        
+        if (bsOffcanvas && window.innerWidth < 992) {
+          // If we are in mobile/tablet, hide the offcanvas
+          bsOffcanvas.hide();
+          
+          // If the link is a hash or external, ensure it navigates
+          // We give a tiny delay to let Bootstrap start the hide animation
+          if (targetHref) {
+            setTimeout(() => {
+              window.location.href = targetHref;
+            }, 150);
+          }
+        }
+      });
+    });
+  });
+</script>

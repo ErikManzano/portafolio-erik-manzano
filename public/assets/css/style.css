@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap');
+
+:root {
+    --color-body: #b6cbce;
+    --color-heading: #eef3db;
+    --color-base: #121212;
+    --color-base2: #212121;
+    --color-brand: #a480f7;
+    --color-brand2: #7c4deb;
+    --sidbar-width: 240px;
+    --font-base: "Bai Jamjuree";
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-base2);
+    color: var(--color-body);
+    font-family: var(--font-base), sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-heading);
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-body);
+    transition: all 0.4s ease;
+}
+
+a:hover {
+    color: var(--color-brand);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: var(--color-base);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar .nav-link {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0.5rem 0;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    color: var(--color-brand);
+}
+
+.navbar-brand img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid var(--color-brand);
+}
+
+@media (min-width: 992px) {
+    .navbar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: var(--sidbar-width);
+        height: 100vh;
+        border-bottom: none;
+        border-right: 2px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 0;
+        z-index: 1000;
+    }
+    
+    .navbar .container {
+        width: 100%;
+    }
+    
+    #content-wrapper {
+        margin-left: var(--sidbar-width);
+    }
+}
+
+/* Utility Classes */
+.text-brand {
+    color: var(--color-brand);
+}
+
+.bg-base {
+    background-color: var(--color-base);
+}
+
+.full-height {
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.shadow-effect {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-effect:hover {
+    box-shadow: -6px 6px 0 0 var(--color-brand), 0 4px 15px rgba(164, 128, 247, 0.2);
+    transform: translateY(-4px);
+}
+
+/* Icon Box */
+.iconbox {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    background-color: white;
+    color: var(--color-base);
+    border-radius: 10px;
+}
+
+.iconbox img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Button Styles */
+.btn-brand {
+    background-color: var(--color-brand);
+    border-color: var(--color-brand);
+    color: var(--color-base);
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+}
+
+.btn-brand:hover {
+    background-color: var(--color-brand2);
+    border-color: var(--color-brand2);
+    color: var(--color-base);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(164, 128, 247, 0.3);
+}
+
+/* Card Styles */
+.card-custom {
+    border: none;
+    background-color: var(--color-base);
+    border-radius: 1.5rem;
+}
+
+.card-custom-image {
+    overflow: hidden;
+    border-radius: 1.5rem;
+    height: 300px;
+}
+
+.card-custom-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.card-custom:hover .card-custom-image img {
+    transform: scale(1.08);
+}
+
+.card-custom-content h4 {
+    margin: 0 0 1rem 0;
+    color: var(--color-heading);
+}
+
+.card-custom-content p {
+    color: var(--color-body);
+    margin: 1rem 0;
+}
+
+.card-custom-content ul {
+    list-style: none;
+    padding-left: 1.5rem;
+}
+
+.card-custom-content li {
+    margin: 0.5rem 0;
+    color: var(--color-body);
+}
+
+.link-custom {
+    color: var(--color-brand);
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.link-custom:hover {
+    color: var(--color-brand2);
+    transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .full-height {
+        padding-top: 100px;
+        min-height: auto;
+    }
+
+    .navbar-brand {
+        width: auto;
+    }
+
+    .navbar-brand img {
+        display: none !important;
+    }
+
+    .display-4 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .full-height {
+        padding: 60px 1rem;
+    }
+
+    .display-4 {
+        font-size: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .btn-brand {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Footer */
+footer {
+    background-color: var(--color-base);
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+footer p {
+    color: var(--color-body);
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--color-brand);
+    color: var(--color-base);
+    font-size: 20px;
+    transition: all 0.3s ease;
+    margin: 0 0.5rem;
+}
+
+.social-icons a:hover {
+    background-color: var(--color-brand2);
+    transform: translateY(-4px);
+}

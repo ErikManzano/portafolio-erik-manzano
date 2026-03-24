@@ -1,0 +1,133 @@
+---
+interface AIIntegration {
+  tool: string;
+  usage: string;
+}
+
+interface Props {
+  aiIntegration: AIIntegration[];
+}
+
+const { aiIntegration } = Astro.props;
+---
+
+<section class="ai-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-number">03</span>
+          <h2 class="section-title">AI Toolset & Productivity</h2>
+          <p class="section-subtitle">Cómo las herramientas de IA potenciaron el proceso de diseño y desarrollo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5 gy-4">
+      {aiIntegration.map((item, index) => (
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay={index * 100}>
+          <div class="ai-card">
+            <div class="ai-card-icon">
+              <i class="las la-robot"></i>
+            </div>
+            <div class="ai-card-content">
+              <h4 class="ai-tool-name">{item.tool}</h4>
+              <p class="ai-usage-text">{item.usage}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ai-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .section-header {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .section-number {
+    display: block;
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(164, 128, 247, 0.15);
+    line-height: 1;
+    margin-bottom: -0.5rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    color: var(--color-body);
+    font-size: 1.1rem;
+    opacity: 0.8;
+  }
+
+  .ai-card {
+    background: var(--color-base);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    height: 100%;
+    display: flex;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+    align-items: flex-start;
+  }
+
+  .ai-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-brand);
+    box-shadow: 0 10px 30px rgba(164, 128, 247, 0.1);
+  }
+
+  .ai-card-icon {
+    background: linear-gradient(135deg, var(--color-brand), var(--color-brand2));
+    width: 60px;
+    height: 60px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ai-card-icon i {
+    font-size: 2rem;
+    color: white;
+  }
+
+  .ai-tool-name {
+    color: var(--color-heading);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+  }
+
+  .ai-usage-text {
+    margin: 0;
+    color: var(--color-body);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .section-number { font-size: 3rem; }
+    .section-title { font-size: 1.8rem; }
+    .ai-card { 
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,295 @@
+---
+import Navbar from "../components/Navbar.astro";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Erik Manzano | Portafolio Web" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{title}</title>
+    <link rel="shortcut icon" href="/assets/images/code.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body data-bs-spy="scroll" data-bs-target=".navbar">
+    <div class="sidebar-wrapper">
+      <Navbar />
+    </div>
+
+    <!-- Premium Background Effects -->
+    <div class="noise-overlay"></div>
+    <div class="glow-container">
+      <div class="glow-blob glow-blob-1"></div>
+      <div class="glow-blob glow-blob-2"></div>
+      <div class="glow-blob glow-blob-3"></div>
+    </div>
+
+    <!-- SVG Noise Filter -->
+    <svg style="display: none;">
+      <filter id="noiseFilter">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.65"
+          numOctaves="3"
+          stitchTiles="stitch"></feTurbulence>
+        <feColorMatrix type="saturate" values="0"></feColorMatrix>
+      </filter>
+    </svg>
+
+    <slot />
+
+    <!-- Scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      defer></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+    <script is:inline src="/assets/js/main.js" defer></script>
+  </body>
+</html>
+
+<style is:global>
+  @import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap");
+
+  :root {
+    --color-body: #b6cbce;
+    --color-heading: #eef3db;
+    --color-base: #121212;
+    --color-base2: #212121;
+    --color-brand: #a480f7;
+    --color-brand2: #7c4deb;
+    --sidbar-width: 240px;
+    --font-base: "Bai Jamjuree";
+  }
+
+  body {
+    background: transparent;
+    color: var(--color-body);
+    font-family: var(--font-base), sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-heading);
+    font-weight: 700;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--color-body);
+    transition: all 0.4s ease;
+  }
+
+  a:hover {
+    color: var(--color-brand);
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .text-brand {
+    color: var(--color-brand);
+  }
+
+  .bg-base {
+    background-color: var(--color-base);
+  }
+
+  .full-height {
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .shadow-effect {
+    transition: all 0.5s;
+  }
+
+  .shadow-effect:hover {
+    box-shadow: -6px 6px 0 0 var(--color-brand);
+  }
+
+  .iconbox {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    background-color: white;
+    color: var(--color-base);
+  }
+
+  .btn-brand {
+    background-color: var(--color-brand);
+    border-color: var(--color-brand);
+    color: var(--color-base);
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .btn-brand:hover {
+    background-color: var(--color-brand2);
+    border-color: var(--color-brand2);
+    color: var(--color-base);
+    transform: translateY(-2px);
+  }
+
+  /* PREMIUM BACKGROUND EFFECTS */
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.05;
+    filter: url(#noiseFilter);
+  }
+
+  .glow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background-color: var(--color-base2);
+  }
+
+  .glow-blob {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.4;
+    mix-blend-mode: screen;
+    animation: move-glow 20s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+  }
+
+  .glow-blob-1 {
+    background: radial-gradient(circle, #d800b4 0%, rgba(0, 180, 216, 0) 70%);
+    top: -10%;
+    left: -10%;
+    width: 800px;
+    height: 800px;
+    animation-delay: 0s;
+  }
+
+  .glow-blob-2 {
+    background: radial-gradient(
+      circle,
+      var(--color-brand) 0%,
+      rgba(164, 128, 247, 0) 70%
+    );
+    bottom: -10%;
+    right: -10%;
+    width: 800px;
+    height: 800px;
+    animation-delay: -5s;
+    opacity: 0.35;
+  }
+
+  .glow-blob-3 {
+    background: radial-gradient(circle, #03ff75 0%, rgba(255, 45, 45, 0) 70%);
+    top: 40%;
+    left: 30%;
+    width: 400px;
+    height: 400px;
+    animation-delay: -10s;
+    opacity: 0.25;
+  }
+
+  @keyframes move-glow {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(100px, 50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-50px, 100px) scale(0.9);
+    }
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+  }
+
+  @media (min-width: 992px) {
+    .sidebar-wrapper {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidbar-width);
+      height: 100vh;
+      z-index: 1000;
+      overflow-x: hidden;
+      overflow-y: hidden; /* Prevent sidebar scrollbar unless necessary */
+      background-color: rgba(18, 18, 18, 0.98);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid rgba(164, 128, 247, 0.2);
+    }
+  }
+
+  @media (max-width: 991px) {
+    .sidebar-wrapper {
+      width: 100%;
+      height: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3000;
+    }
+
+    #content-wrapper {
+      overflow-x: hidden;
+      width: 100%;
+      padding-top: 70px; /* Space for the fixed navbar */
+    }
+  }
+</style>

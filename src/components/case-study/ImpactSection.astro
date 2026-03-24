@@ -1,0 +1,135 @@
+---
+interface Impact {
+  metric: string;
+  value: string;
+  description: string;
+}
+
+interface Props {
+  impact: Impact[];
+}
+
+const { impact } = Astro.props;
+---
+
+<section class="case-study-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-number">04</span>
+          <h2 class="section-title">Impacto del Proyecto</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-lg-10">
+        <div class="impact-grid">
+          {impact.map((item, index) => (
+            <div 
+              class="impact-card" 
+              data-aos="fade-up" 
+              data-aos-delay={100 + index * 100}
+              key={item.metric}
+            >
+              <div class="impact-value">{item.value}</div>
+              <h3 class="impact-metric">{item.metric}</h3>
+              <p class="impact-description">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-study-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .section-header {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .section-number {
+    display: block;
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(164, 128, 247, 0.15);
+    line-height: 1;
+    margin-bottom: -0.5rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-heading);
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+
+  .impact-card {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    border-top: 3px solid #10b981;
+  }
+
+  .impact-card:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.08));
+    border-color: rgba(16, 185, 129, 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(16, 185, 129, 0.1);
+  }
+
+  .impact-value {
+    color: #10b981;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .impact-metric {
+    color: var(--color-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .impact-description {
+    color: var(--color-body);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .section-number {
+      font-size: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+    }
+
+    .impact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .impact-value {
+      font-size: 1.5rem;
+    }
+  }
+</style>

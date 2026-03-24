@@ -1,0 +1,111 @@
+---
+interface Props {
+  solution: string;
+}
+
+const { solution } = Astro.props;
+---
+
+<section class="solution-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-number">02</span>
+          <h2 class="section-title">La Solución (Ingeniería & Diseño)</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-lg-12">
+        <div class="solution-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="solution-icon">
+            <i class="las la-rocket"></i>
+          </div>
+          <div class="solution-body">
+            <p class="solution-text">{solution}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .solution-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .section-header {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .section-number {
+    display: block;
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(164, 128, 247, 0.15);
+    line-height: 1;
+    margin-bottom: -0.5rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-heading);
+  }
+
+  .solution-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .solution-icon {
+    background: var(--color-brand);
+    width: 80px;
+    height: 80px;
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 10px 20px rgba(164, 128, 247, 0.3);
+  }
+
+  .solution-icon i {
+    font-size: 2.5rem;
+    color: white;
+  }
+
+  .solution-body {
+    flex: 1;
+  }
+
+  .solution-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--color-body);
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  @media (max-width: 768px) {
+    .section-number { font-size: 3rem; }
+    .section-title { font-size: 1.8rem; }
+    .solution-card { 
+      padding: 2rem;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .solution-text {
+      font-size: 1.1rem;
+    }
+  }
+</style>

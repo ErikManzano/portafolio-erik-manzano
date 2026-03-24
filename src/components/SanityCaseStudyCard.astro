@@ -1,0 +1,108 @@
+---
+interface Props {
+  caseStudy: {
+    id?: string;
+    title: string;
+    slug: string;
+    summary: string;
+    heroImage?: string;
+    technologies?: string[];
+  };
+}
+
+const { caseStudy } = Astro.props;
+
+const linkUrl = `/case-study/${caseStudy.slug}`;
+---
+
+<div class="col-md-6 row mx-auto my-4" data-aos="fade-up">
+  <div
+    class="card-custom rounded-4 bg-base shadow-effect h-100 d-flex flex-column"
+  >
+    <div class="card-custom-image rounded-4">
+      <a href={linkUrl} aria-label={`Ver caso ${caseStudy.title}`}>
+        <img
+          class="rounded-4"
+          src={caseStudy.heroImage || "/assets/images/placeholder.avif"}
+          alt={`Preview del proyecto ${caseStudy.title}`}
+          loading="lazy"
+        />
+      </a>
+    </div>
+
+    <div class="card-custom-content p-4 d-flex flex-column flex-grow-1">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span
+          class="text-brand fw-bold"
+          style="font-size: 0.8rem; letter-spacing: 1px;"
+        >
+          {caseStudy.technologies ? caseStudy.technologies.slice(0, 3).join(" • ") : "UX/UI"}
+        </span>
+      </div>
+
+      <h4>{caseStudy.title}</h4>
+
+      <div class="flex-grow-1">
+        <p>{caseStudy.summary}</p>
+
+      </div>
+
+      <div
+        class="mt-4 pt-3"
+        style="border-top: 1px solid rgba(255,255,255,0.05);"
+      >
+        <a href={linkUrl} class="link-custom">
+          Leer Caso de Estudio <i class="las la-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .card-custom {
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .card-custom-image {
+    overflow: hidden;
+    height: 250px;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .card-custom-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .card-custom-image:hover img {
+    transform: scale(1.05);
+  }
+
+  .card-custom-content h4 {
+    margin: 0.5rem 0 1rem 0;
+    font-weight: 700;
+  }
+
+  .card-custom-content p {
+    margin: 1rem 0;
+    color: var(--color-body);
+  }
+
+  .link-custom {
+    color: var(--color-brand);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .link-custom:hover {
+    color: var(--color-brand2);
+  }
+</style>

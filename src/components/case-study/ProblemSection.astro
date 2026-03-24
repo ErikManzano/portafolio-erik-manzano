@@ -1,0 +1,134 @@
+---
+interface Props {
+  problem: string;
+  user: string;
+}
+
+const { problem, user } = Astro.props;
+---
+
+<section class="case-study-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-number">01</span>
+          <h2 class="section-title">El Desafío (Challenge)</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row gap-3">
+      <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="problem-card">
+          <h3 class="card-title">Problema Inicial</h3>
+          <p class="card-content">{problem}</p>
+        </div>
+      </div>
+
+      <div class="col-lg-5" data-aos="fade-up" data-aos-delay="200">
+        <div class="problem-card impact">
+          <h3 class="card-title">Perfil de Usuario</h3>
+          <p class="card-content">{user}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-study-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .section-header {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .section-number {
+    display: block;
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(164, 128, 247, 0.15);
+    line-height: 1;
+    margin-bottom: -0.5rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    position: relative;
+    z-index: 1;
+  }
+
+  .problem-card {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+  }
+
+  .problem-card:hover {
+    background-color: rgba(164, 128, 247, 0.08);
+    border-color: rgba(164, 128, 247, 0.3);
+    transform: translateY(-4px);
+  }
+
+  .problem-card.impact {
+    background: linear-gradient(
+      135deg,
+      rgba(220, 38, 38, 0.05),
+      rgba(220, 38, 38, 0.02)
+    );
+    border-color: rgba(220, 38, 38, 0.2);
+  }
+
+  .problem-card.impact:hover {
+    background-color: rgba(220, 38, 38, 0.1);
+    border-color: rgba(220, 38, 38, 0.4);
+  }
+
+  .card-title {
+    color: var(--color-brand);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+
+  .problem-card.impact .card-title {
+    color: #dc2626;
+  }
+
+  .card-description {
+    color: var(--color-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .card-content {
+    color: var(--color-body);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .section-number {
+      font-size: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+    }
+
+    .card-description {
+      font-size: 1.1rem;
+    }
+  }
+</style>
