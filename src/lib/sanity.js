@@ -34,6 +34,21 @@ export async function getCaseStudies() {
         live,
         repo
       },
+      "executiveGallery": executiveGallery[] {
+        caption,
+        category,
+        "image": asset->url
+      },
+      "processGallery": processGallery[] {
+        caption,
+        category,
+        "image": asset->url
+      },
+      "impactGallery": impactGallery[] {
+        caption,
+        category,
+        "image": asset->url
+      },
       "gallery": gallery[] {
         caption,
         category,
@@ -69,6 +84,21 @@ export async function getCaseStudy(id) {
       links {
         live,
         repo
+      },
+      "executiveGallery": executiveGallery[] {
+        caption,
+        category,
+        "image": asset->url
+      },
+      "processGallery": processGallery[] {
+        caption,
+        category,
+        "image": asset->url
+      },
+      "impactGallery": impactGallery[] {
+        caption,
+        category,
+        "image": asset->url
       },
       "gallery": gallery[] {
         caption,

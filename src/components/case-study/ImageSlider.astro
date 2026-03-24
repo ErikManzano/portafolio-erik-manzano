@@ -1,0 +1,285 @@
+---
+interface Props {
+  images: Array<{
+    image: string;
+    caption: string;
+    category?: string;
+  }>;
+  id: string;
+}
+
+const { images, id } = Astro.props;
+
+if (!images || images.length === 0) return null;
+
+const isSlider = images.length >= 3;
+const gridClass = "col-md-6";
+---
+
+<div class="universal-gallery-container" id={`gallery-container-${id}`}>
+  {isSlider ? (
+    <div class="slider-wrapper">
+      <div class="slider-track" id={`track-${id}`}>
+        {images.map((img, index) => (
+          <div class="slider-item">
+            <div class="slider-image-card">
+              <a 
+                href={img.image} 
+                class="glightbox" 
+                data-gallery={`gallery-${id}`}
+                data-glightbox={`title: ${img.caption}`}
+              >
+                <img src={img.image} alt={img.caption || "Gallery Image"} loading="lazy" />
+                <div class="image-overlay">
+                  <i class="bi bi-zoom-in"></i>
+                </div>
+              </a>
+              {img.category && <span class="image-category-badge">{img.category}</span>}
+            </div>
+            {img.caption && <p class="slider-caption">{img.caption}</p>}
+          </div>
+        ))}
+      </div>
+
+      {images.length > 1 && (
+        <div class="slider-nav">
+          <button class="nav-btn prev" id={`prev-${id}`} aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="nav-btn next" id={`next-${id}`} aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      )}
+    </div>
+  ) : (
+    <div class="grid-wrapper">
+      <div class="row gy-4 gx-4 justify-content-center">
+        {images.map((img) => (
+          <div class={gridClass}>
+            <div class="slider-image-card grid-card">
+              <a 
+                href={img.image} 
+                class="glightbox" 
+                data-gallery={`gallery-${id}`}
+                data-glightbox={`title: ${img.caption}`}
+              >
+                <img src={img.image} alt={img.caption || "Gallery Image"} loading="lazy" />
+                <div class="image-overlay">
+                  <i class="bi bi-zoom-in"></i>
+                </div>
+              </a>
+              {img.category && <span class="image-category-badge">{img.category}</span>}
+            </div>
+            {img.caption && <p class="slider-caption">{img.caption}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .universal-gallery-container {
+    margin: 3rem 0;
+    width: 100%;
+    position: relative;
+  }
+
+  .slider-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .slider-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    padding: 1rem 0;
+  }
+
+  .slider-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .slider-item {
+    flex: 0 0 45%;
+    min-width: 300px;
+    scroll-snap-align: start;
+    transition: transform 0.3s ease;
+  }
+
+  .grid-wrapper {
+    width: 100%;
+  }
+
+  .slider-image-card {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .grid-card {
+    aspect-ratio: auto;
+    min-height: 400px;
+    max-height: 600px;
+  }
+
+  .slider-image-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-brand);
+    box-shadow: 0 20px 40px rgba(164, 128, 247, 0.2);
+  }
+
+  .slider-image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .slider-image-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(164, 128, 247, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .slider-image-card:hover .image-overlay {
+    opacity: 1;
+  }
+
+  .image-overlay i {
+    font-size: 2rem;
+    color: white;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+  }
+
+  .slider-image-card:hover .image-overlay i {
+    transform: scale(1);
+  }
+
+  .image-category-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--color-brand);
+    color: white;
+    padding: 0.35rem 0.85rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .slider-caption {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-body);
+    opacity: 0.8;
+    padding: 0 0.5rem;
+    line-height: 1.5;
+  }
+
+  .slider-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+    padding: 0 1rem;
+  }
+
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(18, 18, 18);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+  }
+
+  .nav-btn:hover {
+    background: var(--color-brand);
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 991px) {
+    .slider-item { flex: 0 0 70%; }
+    .grid-card { min-height: 300px; }
+  }
+
+  @media (max-width: 768px) {
+    .slider-item { flex: 0 0 85%; min-width: 260px; }
+    .slider-nav { display: none; }
+    .grid-card { min-height: 250px; }
+  }
+</style>
+
+{isSlider && (
+  <script is:inline define:vars={{ id }}>
+    function setupSlider() {
+      const track = document.getElementById(`track-${id}`);
+      const prevBtn = document.getElementById(`prev-${id}`);
+      const nextBtn = document.getElementById(`next-${id}`);
+
+      if (!track || !prevBtn || !nextBtn) return;
+
+      const handleScroll = () => {
+        const itemWidth = track.querySelector('.slider-item').offsetWidth + 24;
+        prevBtn.addEventListener('click', () => {
+          track.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+          track.scrollBy({ left: itemWidth, behavior: 'smooth' });
+        });
+      };
+
+      handleScroll();
+      
+      track.addEventListener('scroll', () => {
+        const isAtStart = track.scrollLeft === 0;
+        const isAtEnd = track.scrollLeft + track.offsetWidth >= track.scrollWidth - 10;
+        prevBtn.style.opacity = isAtStart ? '0.3' : '1';
+        nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
+      });
+    }
+
+    setupSlider();
+    document.addEventListener('astro:page-load', setupSlider);
+  </script>
+)}

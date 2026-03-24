@@ -1,4 +1,6 @@
 ---
+import ImageSlider from './ImageSlider.astro';
+
 interface Impact {
   metric: string;
   value: string;
@@ -7,9 +9,10 @@ interface Impact {
 
 interface Props {
   impact: Impact[];
+  images?: Array<{ image: string; caption: string }>;
 }
 
-const { impact } = Astro.props;
+const { impact, images = [] } = Astro.props;
 ---
 
 <section class="case-study-section py-5">
@@ -31,7 +34,6 @@ const { impact } = Astro.props;
               class="impact-card" 
               data-aos="fade-up" 
               data-aos-delay={100 + index * 100}
-              key={item.metric}
             >
               <div class="impact-value">{item.value}</div>
               <h3 class="impact-metric">{item.metric}</h3>
@@ -41,6 +43,14 @@ const { impact } = Astro.props;
         </div>
       </div>
     </div>
+
+    {images && images.length > 0 && (
+      <div class="row mt-5" data-aos="fade-up" data-aos-delay="300">
+        <div class="col-12">
+          <ImageSlider images={images} id="impact-gallery" />
+        </div>
+      </div>
+    )}
   </div>
 </section>
 

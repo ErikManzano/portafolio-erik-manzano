@@ -29,6 +29,9 @@ interface Props {
       live?: string;
       repo?: string;
     };
+    executiveGallery?: Array<{ image: string; caption: string; category?: string }>;
+    processGallery?: Array<{ image: string; caption: string; category?: string }>;
+    impactGallery?: Array<{ image: string; caption: string; category?: string }>;
     gallery?: Array<{
       image: string;
       caption: string;
@@ -50,23 +53,48 @@ const { project } = Astro.props;
     context={project.challenge?.problem || project.summary}
     technologies={project.technologies}
     links={project.links}
+    images={project.executiveGallery}
   />
 
   {project.challenge && (
     <ProblemSection
       problem={project.challenge.problem || ""}
       user={project.challenge.user || ""}
+      images={project.processGallery || project.gallery?.filter(img => 
+        img.category?.toLowerCase().includes('problem') || 
+        img.category?.toLowerCase() === 'desafío' ||
+        img.category?.toLowerCase() === 'before'
+      ).map(img => ({ image: img.image, caption: img.caption, category: img.category }))}
     />
   )}
 
-  {project.solution && <SolutionSection solution={project.solution} />}
+  {project.solution && (
+    <SolutionSection 
+      solution={project.solution} 
+      images={project.processGallery || project.gallery?.filter(img => 
+        img.category?.toLowerCase().includes('solution') || 
+        img.category?.toLowerCase() === 'solución' ||
+        img.category?.toLowerCase() === 'after' ||
+        img.category?.toLowerCase() === 'ui'
+      ).map(img => ({ image: img.image, caption: img.caption, category: img.category }))}
+    />
+  )}
 
   {project.aiIntegration && project.aiIntegration.length > 0 && (
-    <AIIntegrationSection aiIntegration={project.aiIntegration} />
+    <AIIntegrationSection 
+      aiIntegration={project.aiIntegration} 
+      images={project.impactGallery || project.gallery?.filter(img => 
+        img.category?.toLowerCase().includes('ai') || 
+        img.category?.toLowerCase().includes('tool')
+      ).map(img => ({ image: img.image, caption: img.caption, category: img.category }))}
+    />
   )}
 
   {project.metrics && project.metrics.length > 0 && (
-    <ImpactSection impact={project.metrics.map(m => ({ metric: m.label, value: m.value, description: "" }))} />
+    <ImpactSection 
+      impact={project.metrics.map(m => ({ metric: m.label, value: m.value, description: "" }))} 
+      images={project.impactGallery}
+    />
   )}
 
   {project.gallery && project.gallery.length > 0 && (

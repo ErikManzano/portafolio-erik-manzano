@@ -1,4 +1,6 @@
 ---
+import ImageSlider from "./ImageSlider.astro";
+
 interface Props {
   title: string;
   description: string;
@@ -11,6 +13,7 @@ interface Props {
     live?: string;
     repo?: string;
   };
+  images?: Array<{ image: string; caption: string }>;
 }
 
 const {
@@ -22,13 +25,25 @@ const {
   context,
   technologies,
   links,
+  images = [],
 } = Astro.props;
 ---
 
 <section class="case-study-hero py-5">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-8">
+      <div class="col-lg-12">
+        {
+          images && images.length > 0 && (
+            <div class="row mt-4" data-aos="fade-up" data-aos-delay="300">
+              <div class="col-12">
+                <ImageSlider images={images} id="hero-gallery" />
+              </div>
+            </div>
+          )
+        }
+      </div>
+      <div class="col-lg-12">
         <div class="hero-content" data-aos="fade-up">
           <span class="badge-year">{year}</span>
           <h1 class="hero-title mb-4">{title}</h1>

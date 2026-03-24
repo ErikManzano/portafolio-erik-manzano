@@ -1,10 +1,13 @@
 ---
+import ImageSlider from './ImageSlider.astro';
+
 interface Props {
   problem: string;
   user: string;
+  images?: Array<{ image: string; caption: string }>;
 }
 
-const { problem, user } = Astro.props;
+const { problem, user, images = [] } = Astro.props;
 ---
 
 <section class="case-study-section py-5">
@@ -33,6 +36,14 @@ const { problem, user } = Astro.props;
         </div>
       </div>
     </div>
+
+    {images && images.length > 0 && (
+      <div class="row mt-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="col-12">
+          <ImageSlider images={images} id="problem" />
+        </div>
+      </div>
+    )}
   </div>
 </section>
 

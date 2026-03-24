@@ -1,4 +1,6 @@
 ---
+import ImageSlider from './ImageSlider.astro';
+
 interface AIIntegration {
   tool: string;
   usage: string;
@@ -6,9 +8,10 @@ interface AIIntegration {
 
 interface Props {
   aiIntegration: AIIntegration[];
+  images?: Array<{ image: string; caption: string }>;
 }
 
-const { aiIntegration } = Astro.props;
+const { aiIntegration, images = [] } = Astro.props;
 ---
 
 <section class="ai-section py-5">
@@ -38,6 +41,14 @@ const { aiIntegration } = Astro.props;
         </div>
       ))}
     </div>
+
+    {images && images.length > 0 && (
+      <div class="row mt-5" data-aos="fade-up" data-aos-delay="300">
+        <div class="col-12">
+          <ImageSlider images={images} id="ai-tools" />
+        </div>
+      </div>
+    )}
   </div>
 </section>
 
