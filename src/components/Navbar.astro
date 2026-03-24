@@ -200,29 +200,53 @@ const isCaseStudy = pathname.includes("/case-study");
 </style>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
+  function setupNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
     const offcanvasElement = document.getElementById('offcanvasNavbar');
-    
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/index';
+
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        const targetHref = link.getAttribute('href');
-        // @ts-ignore
-        const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
-        
-        if (bsOffcanvas && window.innerWidth < 992) {
-          // If we are in mobile/tablet, hide the offcanvas
-          bsOffcanvas.hide();
-          
-          // If the link is a hash or external, ensure it navigates
-          // We give a tiny delay to let Bootstrap start the hide animation
-          if (targetHref) {
-            setTimeout(() => {
-              window.location.href = targetHref;
-            }, 150);
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        // Check if it's an anchor link for the home page
+        if (href.startsWith('/#') || href.startsWith('#')) {
+          const anchorId = href.split('#')[1];
+          const targetElement = document.getElementById(anchorId);
+
+          if (isHomePage && targetElement) {
+            // Internal navigation: smooth scroll
+            e.preventDefault();
+            
+            // Hide offcanvas if mobile
+            if (window.innerWidth < 992 && offcanvasElement) {
+              // @ts-ignore
+              const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+              if (bsOffcanvas) bsOffcanvas.hide();
+            }
+
+            // Scroll to target
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+            
+            // Update URL hash without reload
+            history.pushState(null, '', `#${anchorId}`);
+          } else {
+            // Cross-page navigation: default behavior, but help mobile
+            if (window.innerWidth < 992 && offcanvasElement) {
+              // @ts-ignore
+              const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+              if (bsOffcanvas) bsOffcanvas.hide();
+            }
           }
         }
       });
     });
-  });
+  }
+
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', setupNavigation);
+  
+  // Also handle page load for future Astro transitions compatibility
+  document.addEventListener('astro:page-load', setupNavigation);
 </script>
