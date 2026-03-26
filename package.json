@@ -1,7 +1,7 @@
 {
   "name": "portafolio-erik-manzano",
   "version": "2.0.0",
-  "description": "Portafolio profesional de Erik Manzano - UX/UI Designer & Front End Developer",
+  "description": "Portafolio profesional de Erik Manzano - UX/UI Designer & Full Stack Developer",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
