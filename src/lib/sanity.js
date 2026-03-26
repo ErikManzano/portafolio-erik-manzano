@@ -10,10 +10,10 @@ export const client = createClient({
 // Query para obtener todos los case studies
 export async function getCaseStudies() {
   const query = `
-    *[_type == "caseStudy" && defined(id.current)] | order(_createdAt desc) {
-      "id": id.current,
+    *[_type == "caseStudy"] | order(title asc) {
+      "id": coalesce(id.current, _id),
       title,
-      "slug": id.current,
+      "slug": coalesce(id.current, _id),
       summary,
       technologies,
       challenge {
@@ -62,8 +62,8 @@ export async function getCaseStudies() {
 // Query para obtener un case study específico por ID
 export async function getCaseStudy(id) {
   const query = `
-    *[_type == "caseStudy" && id.current == $id][0] {
-      "id": id.current,
+    *[_type == "caseStudy" && (id.current == $id || _id == $id)][0] {
+      "id": coalesce(id.current, _id),
       title,
       summary,
       technologies,
@@ -121,7 +121,7 @@ export async function getCaseStudyIds() {
 // Query para obtener todos los proyectos
 export async function getProjects() {
   const query = `
-    *[_type == "project"] | order(date desc) {
+    *[_type == "project"] | order(title asc) {
       title,
       "slug": slug.current,
       description,

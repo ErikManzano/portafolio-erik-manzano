@@ -1,5 +1,5 @@
 ---
-import ImageSlider from './ImageSlider.astro';
+import ImageSlider from "./ImageSlider.astro";
 
 interface Props {
   problem: string;
@@ -12,7 +12,7 @@ const { problem, user, images = [] } = Astro.props;
 
 <section class="case-study-section py-5">
   <div class="container">
-    <div class="row">
+    <div class="row gap-3">
       <div class="col-lg-10">
         <div class="section-header" data-aos="fade-up">
           <span class="section-number">01</span>
@@ -20,31 +20,33 @@ const { problem, user, images = [] } = Astro.props;
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="row gap-3">
-      <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
-        <div class="problem-card">
-          <h3 class="card-title">Problema Inicial</h3>
-          <p class="card-content">{problem}</p>
-        </div>
-      </div>
-
-      <div class="col-lg-5" data-aos="fade-up" data-aos-delay="200">
-        <div class="problem-card impact">
-          <h3 class="card-title">Perfil de Usuario</h3>
-          <p class="card-content">{user}</p>
-        </div>
+  <div class="row gap-3 p-3">
+    <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+      <div class="problem-card">
+        <h3 class="card-title">Problema Inicial</h3>
+        <p class="card-content">{problem}</p>
       </div>
     </div>
 
-    {images && images.length > 0 && (
+    <div class="col-lg-5" data-aos="fade-up" data-aos-delay="200">
+      <div class="problem-card impact">
+        <h3 class="card-title">Perfil de Usuario</h3>
+        <p class="card-content">{user}</p>
+      </div>
+    </div>
+  </div>
+
+  {
+    images && images.length > 0 && (
       <div class="row mt-4" data-aos="fade-up" data-aos-delay="300">
         <div class="col-12">
           <ImageSlider images={images} id="problem" />
         </div>
       </div>
-    )}
-  </div>
+    )
+  }
 </section>
 
 <style>

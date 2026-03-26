@@ -6,22 +6,26 @@ interface Props {
     category?: string;
   }>;
   id: string;
+  isHero?: boolean;
 }
 
-const { images, id } = Astro.props;
+const { images, id, isHero = false } = Astro.props;
 
 if (!images || images.length === 0) return null;
 
-const isSlider = images.length >= 3;
+const isSlider = isHero || images.length >= 3;
 const gridClass = "col-md-6";
 ---
 
-<div class="universal-gallery-container" id={`gallery-container-${id}`}>
+<div 
+  class={`universal-gallery-container ${isHero ? 'is-hero' : ''}`} 
+  id={`gallery-container-${id}`}
+>
   {isSlider ? (
     <div class="slider-wrapper">
       <div class="slider-track" id={`track-${id}`}>
         {images.map((img, index) => (
-          <div class="slider-item">
+          <div class="slider-item" data-index={index}>
             <div class="slider-image-card">
               <a 
                 href={img.image} 
@@ -30,26 +34,39 @@ const gridClass = "col-md-6";
                 data-glightbox={`title: ${img.caption}`}
               >
                 <img src={img.image} alt={img.caption || "Gallery Image"} loading="lazy" />
-                <div class="image-overlay">
-                  <i class="bi bi-zoom-in"></i>
-                </div>
+                {!isHero && (
+                  <div class="image-overlay">
+                    <i class="bi bi-zoom-in"></i>
+                  </div>
+                )}
               </a>
               {img.category && <span class="image-category-badge">{img.category}</span>}
             </div>
-            {img.caption && <p class="slider-caption">{img.caption}</p>}
+            {img.caption && <p class="slider-caption text-center">{img.caption}</p>}
           </div>
         ))}
       </div>
 
       {images.length > 1 && (
-        <div class="slider-nav">
-          <button class="nav-btn prev" id={`prev-${id}`} aria-label="Previous">
-            <i class="bi bi-chevron-left"></i>
-          </button>
-          <button class="nav-btn next" id={`next-${id}`} aria-label="Next">
-            <i class="bi bi-chevron-right"></i>
-          </button>
-        </div>
+        <>
+          <div class="slider-nav">
+            <button class="nav-btn prev" id={`prev-${id}`} aria-label="Previous">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="nav-btn next" id={`next-${id}`} aria-label="Next">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+          <div class="slider-dots" id={`dots-${id}`}>
+            {images.map((_, i) => (
+              <button 
+                class={`dot ${i === 0 ? 'active' : ''}`} 
+                aria-label={`Go to slide ${i + 1}`}
+                data-index={i}
+              ></button>
+            ))}
+          </div>
+        </>
       )}
     </div>
   ) : (
@@ -97,9 +114,15 @@ const gridClass = "col-md-6";
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     padding: 1rem 0;
+    align-items: center;
+  }
+
+  .is-hero .slider-track {
+    gap: 0;
+    padding: 2rem 0;
   }
 
   .slider-track::-webkit-scrollbar {
@@ -107,10 +130,29 @@ const gridClass = "col-md-6";
   }
 
   .slider-item {
-    flex: 0 0 45%;
-    min-width: 300px;
-    scroll-snap-align: start;
-    transition: transform 0.3s ease;
+    flex: 0 0 60%;
+    max-width: 400px;
+    scroll-snap-align: center;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    opacity: 0.4;
+  }
+
+  .universal-gallery-container.is-hero .slider-item {
+    flex: 0 0 75%;
+    max-width: 1200px;
+    opacity: 0.5;
+    padding: 0 1.5rem;
+    transform: scale(0.92);
+  }
+
+  .slider-item.active {
+    opacity: 1 !important;
+    transform: scale(1.02);
+  }
+
+  .universal-gallery-container.is-hero .slider-item.active {
+    transform: scale(1);
+    opacity: 1;
   }
 
   .grid-wrapper {
@@ -121,17 +163,17 @@ const gridClass = "col-md-6";
     position: relative;
     border-radius: 1.5rem;
     overflow: hidden;
-    aspect-ratio: 16 / 10;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .grid-card {
-    aspect-ratio: auto;
-    min-height: 400px;
-    max-height: 600px;
+    height: auto;
   }
 
   .slider-image-card:hover {
@@ -140,12 +182,29 @@ const gridClass = "col-md-6";
     box-shadow: 0 20px 40px rgba(164, 128, 247, 0.2);
   }
 
-  .slider-image-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
+  .is-hero .slider-image-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
   }
+
+  .slider-image-card img {
+    max-width: 100%;
+    max-height: 700px;
+    object-fit: contain;
+    transition: transform 0.6s ease;
+    display: block;
+    width: 100%;
+  }
+
+  .is-hero .slider-image-card img {
+    max-height: 60vh;
+    border-radius: 12px;
+  }
+  
 
   .slider-image-card:hover img {
     transform: scale(1.05);
@@ -213,24 +272,30 @@ const gridClass = "col-md-6";
     display: flex;
     justify-content: space-between;
     pointer-events: none;
-    z-index: 10;
+    z-index: 20;
     padding: 0 1rem;
   }
 
+  .is-hero .slider-nav {
+    /* Position arrows in the gutters created by the 75% width centered slide */
+    padding: 0 2%;
+  }
+
   .nav-btn {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: rgba(18, 18, 18);
+    background: rgba(18, 18, 18, 0.8);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     pointer-events: auto;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   }
 
   .nav-btn:hover {
@@ -238,13 +303,40 @@ const gridClass = "col-md-6";
     transform: scale(1.1);
   }
 
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .dot.active {
+    background: var(--color-brand);
+    width: 30px;
+    border-radius: 5px;
+  }
+
   @media (max-width: 991px) {
-    .slider-item { flex: 0 0 70%; }
+    .slider-item { flex: 0 0 80%; }
+    .is-hero .slider-item { flex: 0 0 90%; }
     .grid-card { min-height: 300px; }
+    .slider-nav { padding: 0 0.5rem; }
   }
 
   @media (max-width: 768px) {
     .slider-item { flex: 0 0 85%; min-width: 260px; }
+    .is-hero .slider-item { flex: 0 0 92%; }
     .slider-nav { display: none; }
     .grid-card { min-height: 250px; }
   }
@@ -256,30 +348,80 @@ const gridClass = "col-md-6";
       const track = document.getElementById(`track-${id}`);
       const prevBtn = document.getElementById(`prev-${id}`);
       const nextBtn = document.getElementById(`next-${id}`);
+      const dotContainer = document.getElementById(`dots-${id}`);
+      const dots = dotContainer ? dotContainer.querySelectorAll('.dot') : [];
+      const items = track ? track.querySelectorAll('.slider-item') : [];
 
-      if (!track || !prevBtn || !nextBtn) return;
+      if (!track) return;
 
-      const handleScroll = () => {
-        const itemWidth = track.querySelector('.slider-item').offsetWidth + 24;
+      const updateActiveState = () => {
+        const scrollCenter = track.scrollLeft + (track.offsetWidth / 2);
+        let activeIndex = 0;
+        let minDiff = Infinity;
+
+        items.forEach((item, index) => {
+          const itemCenter = item.offsetLeft + (item.offsetWidth / 2);
+          const diff = Math.abs(scrollCenter - itemCenter);
+          if (diff < minDiff) {
+            minDiff = diff;
+            activeIndex = index;
+          }
+          // Smaller threshold for active state to ensure only the centered one is fully opaque
+          item.classList.toggle('active', diff < (item.offsetWidth / 3));
+        });
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === activeIndex);
+        });
+
+        if (prevBtn && nextBtn) {
+           const isAtStart = track.scrollLeft <= 10;
+           const isAtEnd = track.scrollLeft + track.offsetWidth >= track.scrollWidth - 10;
+           prevBtn.style.opacity = isAtStart ? '0.2' : '1';
+           prevBtn.style.pointerEvents = isAtStart ? 'none' : 'auto';
+           nextBtn.style.opacity = isAtEnd ? '0.2' : '1';
+           nextBtn.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+        }
+      };
+
+      if (prevBtn && nextBtn) {
         prevBtn.addEventListener('click', () => {
+          const itemWidth = items[0].offsetWidth + (parseFloat(getComputedStyle(track).gap) || 0);
           track.scrollBy({ left: -itemWidth, behavior: 'smooth' });
         });
         nextBtn.addEventListener('click', () => {
+          const itemWidth = items[0].offsetWidth + (parseFloat(getComputedStyle(track).gap) || 0);
           track.scrollBy({ left: itemWidth, behavior: 'smooth' });
         });
-      };
+      }
 
-      handleScroll();
-      
-      track.addEventListener('scroll', () => {
-        const isAtStart = track.scrollLeft === 0;
-        const isAtEnd = track.scrollLeft + track.offsetWidth >= track.scrollWidth - 10;
-        prevBtn.style.opacity = isAtStart ? '0.3' : '1';
-        nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          const targetItem = items[index];
+          if (targetItem) {
+            track.scrollTo({
+              left: targetItem.offsetLeft - (track.offsetWidth - targetItem.offsetWidth) / 2,
+              behavior: 'smooth'
+            });
+          }
+        });
       });
+
+      track.addEventListener('scroll', () => {
+        clearTimeout(track.scrollTimeout);
+        track.scrollTimeout = setTimeout(updateActiveState, 50);
+      });
+
+      // Initial state
+      updateActiveState();
+      
+      // Wait for images to load to calculate correctly
+      window.addEventListener('load', updateActiveState);
     }
 
+    // Run once on load
     setupSlider();
+    // Support Astro View Transitions
     document.addEventListener('astro:page-load', setupSlider);
   </script>
 )}

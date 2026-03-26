@@ -1,0 +1,198 @@
+---
+
+---
+
+<div id="page-loader" class="page-loader">
+  <div class="loader-content">
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+    <div class="loader-text">Cargando...</div>
+  </div>
+</div>
+
+<style>
+  .page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #121212;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      opacity 0.5s ease-in-out,
+      visibility 0.5s;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .page-loader.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  /* Fade out animation when page is loaded */
+  .page-loader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loader-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .loader-logo {
+    width: 100px;
+    height: 100px;
+    padding: 3px;
+    border: 2px solid var(--color-brand);
+    border-radius: 50%;
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  .loader-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .loader-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .loader-progress {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--color-brand);
+    animation: loading 1.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .loader-text {
+    color: var(--color-brand);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(164, 128, 247, 0.4);
+    }
+    70% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 20px rgba(164, 128, 247, 0);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(164, 128, 247, 0);
+    }
+  }
+
+  @keyframes loading {
+    0% {
+      left: -100%;
+      width: 30%;
+    }
+    50% {
+      width: 60%;
+    }
+    100% {
+      left: 100%;
+      width: 30%;
+    }
+  }
+</style>
+
+<script is:inline>
+  function handlePageLoader() {
+    const loader = document.getElementById("page-loader");
+    if (!loader) return;
+
+    // 1. ASTRO ViewTransitions Support
+    document.addEventListener("astro:before-preparation", () => {
+      loader.classList.add("active");
+    });
+
+    document.addEventListener("astro:after-swap", () => {
+      setTimeout(() => {
+        loader.classList.add("fade-out");
+        setTimeout(() => {
+          loader.classList.remove("active", "fade-out");
+        }, 500);
+      }, 300);
+    });
+
+    // 2. STANDARD Page Reload Fallback
+    // Intercept clicks on links for standard reloads
+    document.addEventListener("click", (e) => {
+      // If ViewTransitions is doing its thing, it will handle it.
+      // But for a failsafe or standard reload:
+      const link = e.target.closest("a");
+      if (!link) return;
+
+      const href = link.getAttribute("href");
+      const target = link.getAttribute("target");
+
+      if (
+        href &&
+        !href.startsWith("#") &&
+        !href.startsWith("mailto:") &&
+        !href.startsWith("tel:") &&
+        target !== "_blank" &&
+        !e.metaKey &&
+        !e.ctrlKey
+      ) {
+        const url = new URL(href, window.location.origin);
+        if (
+          url.origin === window.location.origin &&
+          url.pathname !== window.location.pathname
+        ) {
+          // Check if we are actually about to navigate (it's not a hash on same page)
+          loader.classList.add("active");
+        }
+      }
+    });
+
+    // On initial load of a new page (standard reload)
+    // We can't really "start" it active, so it hides here
+    window.addEventListener("pageshow", () => {
+      loader.classList.remove("active", "fade-out");
+    });
+  }
+
+  // Initial call
+  handlePageLoader();
+
+  // Re-init context on every page load with transitions
+  document.addEventListener("astro:page-load", () => {
+    // Hide loader if it stayed active from a transition
+    const loader = document.getElementById("page-loader");
+    if (loader) {
+      loader.classList.add("fade-out");
+      setTimeout(() => {
+        loader.classList.remove("active", "fade-out");
+      }, 500);
+    }
+  });
+</script>

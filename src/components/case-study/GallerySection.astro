@@ -48,25 +48,24 @@ const categoryLabels = {
       Object.entries(grouped).map(([category, imgs]: any, categoryIdx) => (
         <div
           class="gallery-section mt-5"
-          key={category}
           data-aos="fade-up"
           data-aos-delay={100 + categoryIdx * 100}
         >
           <div class="row">
             <div class="col-lg-10">
               <h3 class="category-title">
-                {categoryLabels[category] || category}
+                {categoryLabels[category as keyof typeof categoryLabels] ||
+                  category}
               </h3>
             </div>
           </div>
 
           <div class="row mt-3">
-            <div class="col-12 col-lg-6 col-md-6">
+            <div class="col-12 col-lg-6 col-md-12">
               <div class="gallery-grid">
                 {imgs.map((img: any, imgIdx: number) => (
                   <div
                     class="gallery-item"
-                    key={imgIdx}
                     data-aos="zoom-in"
                     data-aos-delay={150 + imgIdx * 50}
                   >
@@ -124,8 +123,16 @@ const categoryLabels = {
 
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    max-width: 100%;
+  }
+
+  @media (min-width: 1200px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 900px;
+    }
   }
 
   .gallery-item {
@@ -146,15 +153,21 @@ const categoryLabels = {
   .gallery-image-wrapper {
     width: 100%;
     height: auto;
-    background-color: #fff;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
   }
 
   .gallery-image-wrapper img {
     width: 100%;
     height: auto;
+    max-height: 450px;
     display: block;
     transition: transform 0.3s ease;
     cursor: zoom-in;
+    object-fit: contain;
   }
 
   .gallery-item:hover .gallery-image-wrapper img {

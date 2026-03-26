@@ -4,8 +4,8 @@ import { client } from "../../lib/sanity.js";
 import ProjectCaseStudy from "../../components/case-study/ProjectCaseStudy.astro";
 
 export async function getStaticPaths() {
-  const query = `*[_type == "caseStudy" && defined(id.current)]{
-    "slug": id.current
+  const query = `*[_type == "caseStudy"]{
+    "slug": coalesce(id.current, _id)
   }`;
 
   const projects = await client.fetch(query);
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 
 const query = `
-*[_type == "caseStudy" && id.current == $slug][0]{
+*[_type == "caseStudy" && (id.current == $slug || _id == $slug)][0]{
   title,
   summary,
   technologies,

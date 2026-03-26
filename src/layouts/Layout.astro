@@ -1,5 +1,9 @@
 ---
 import Navbar from "../components/Navbar.astro";
+import PageLoader from "../components/PageLoader.astro";
+import * as transitions from "astro:transitions";
+
+const ViewTransitions = transitions.ViewTransitions;
 
 interface Props {
   title?: string;
@@ -16,6 +20,7 @@ const { title = "Erik Manzano | Portafolio Web" } = Astro.props;
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>{title}</title>
     <link rel="shortcut icon" href="/assets/images/code.png" />
+    {ViewTransitions && <ViewTransitions />}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,6 +52,7 @@ const { title = "Erik Manzano | Portafolio Web" } = Astro.props;
     <div class="sidebar-wrapper">
       <Navbar />
     </div>
+    <PageLoader />
 
     <!-- Premium Background Effects -->
     <div class="noise-overlay"></div>

@@ -4,10 +4,14 @@ const isCaseStudy = pathname.includes("/case-study");
 ---
 
 <nav class="navbar navbar-expand-lg site-navigation">
-  <div class="container flex-lg-column align-items-center justify-content-between p-lg-0">
+  <div
+    class="container flex-lg-column align-items-center justify-content-between p-lg-0"
+  >
     <!-- BRAND / LOGO -->
     <a class="navbar-brand mx-lg-auto mb-lg-5" href="/">
-      <span class="h3 fw-bold d-block d-lg-none m-0 text-white">Erik Manzano</span>
+      <span class="h3 fw-bold d-block d-lg-none m-0 text-white"
+        >Erik Manzano</span
+      >
       <img
         src="/assets/images/pic1.jpg"
         class="profile-pic d-none d-lg-block rounded-circle"
@@ -35,7 +39,10 @@ const isCaseStudy = pathname.includes("/case-study");
       aria-labelledby="offcanvasNavbarLabel"
     >
       <div class="offcanvas-header d-lg-none border-bottom border-secondary">
-        <h5 class="offcanvas-title text-brand fw-bold" id="offcanvasNavbarLabel">
+        <h5
+          class="offcanvas-title text-brand fw-bold"
+          id="offcanvasNavbarLabel"
+        >
           Erik Manzano
         </h5>
         <button
@@ -44,30 +51,73 @@ const isCaseStudy = pathname.includes("/case-study");
           data-bs-dismiss="offcanvas"
           aria-label="Close"></button>
       </div>
-      
+
       <div class="offcanvas-body">
         <ul class="navbar-nav flex-lg-column gap-3 gap-lg-4">
-          <li class="nav-item">
-            <a class="nav-link" href="/#home" data-bs-dismiss="offcanvas">Acerca de mi</a>
-          </li>
-          <li class="nav-item">
-            <a
-              class={`nav-link ${isCaseStudy ? "active" : ""}`}
-              href="/#casos-de-estudio"
-              data-bs-dismiss="offcanvas"
-            >
-              Casos de Estudio
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/#proyectos" data-bs-dismiss="offcanvas">Proyectos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/#about" data-bs-dismiss="offcanvas">Formación y experiencia</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/#contacto" data-bs-dismiss="offcanvas">Contacto</a>
-          </li>
+          {
+            !isCaseStudy ? (
+              <>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    href="/#home"
+                    data-section="home"
+                    data-bs-dismiss="offcanvas"
+                  >
+                    Acerca de mi
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    href="/#casos-de-estudio"
+                    data-section="casos-de-estudio"
+                    data-bs-dismiss="offcanvas"
+                  >
+                    Casos de Estudio
+                  </a>
+                </li>
+                <!-- Proyectos nav link commented out as requested
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    href="/#proyectos"
+                    data-section="proyectos"
+                    data-bs-dismiss="offcanvas"
+                  >
+                    Proyectos
+                  </a>
+                </li>
+                -->
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    href="/#about"
+                    data-section="about"
+                    data-bs-dismiss="offcanvas"
+                  >
+                    Formación y experiencia
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    href="/#contacto"
+                    data-section="contacto"
+                    data-bs-dismiss="offcanvas"
+                  >
+                    Contacto
+                  </a>
+                </li>
+              </>
+            ) : (
+              <li class="nav-item w-100">
+                <a class="nav-link back-home-btn" href="/">
+                  <i class="bi bi-arrow-left me-2" /> REGRESAR
+                </a>
+              </li>
+            )
+          }
         </ul>
       </div>
     </div>
@@ -91,7 +141,8 @@ const isCaseStudy = pathname.includes("/case-study");
     cursor: pointer;
   }
 
-  .nav-link:hover, .nav-link.active {
+  .nav-link:hover,
+  .nav-link.active {
     color: var(--color-brand) !important;
   }
 
@@ -119,7 +170,7 @@ const isCaseStudy = pathname.includes("/case-study");
       display: flex;
       flex-direction: column;
       justify-content: center; /* Vertical Center */
-      align-items: center;    /* Horizontal Center */
+      align-items: center; /* Horizontal Center */
       height: 100%;
       padding: 2rem !important;
     }
@@ -176,6 +227,24 @@ const isCaseStudy = pathname.includes("/case-study");
     }
   }
 
+  .back-home-btn {
+    border: 1px solid var(--color-brand);
+    border-radius: 0.5rem;
+    background: rgba(164, 128, 247, 0.1);
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+  .back-home-btn:hover {
+    background: var(--color-brand);
+    color: var(--color-base) !important;
+  }
+
+  .back-home-btn i {
+    font-size: 1.1rem;
+    vertical-align: middle;
+  }
+
   /* UTILS */
   .profile-pic {
     width: 150px;
@@ -201,41 +270,46 @@ const isCaseStudy = pathname.includes("/case-study");
 
 <script is:inline>
   function setupNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const offcanvasElement = document.getElementById('offcanvasNavbar');
-    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/index';
+    const navLinks = document.querySelectorAll(".nav-link");
+    const offcanvasElement = document.getElementById("offcanvasNavbar");
+    const isHomePage =
+      window.location.pathname === "/" ||
+      window.location.pathname === "/index.html" ||
+      window.location.pathname === "/index";
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
+    navLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
         if (!href) return;
 
         // Check if it's an anchor link for the home page
-        if (href.startsWith('/#') || href.startsWith('#')) {
-          const anchorId = href.split('#')[1];
+        if (href.startsWith("/#") || href.startsWith("#")) {
+          const anchorId = href.split("#")[1];
           const targetElement = document.getElementById(anchorId);
 
           if (isHomePage && targetElement) {
             // Internal navigation: smooth scroll
             e.preventDefault();
-            
+
             // Hide offcanvas if mobile
             if (window.innerWidth < 992 && offcanvasElement) {
               // @ts-ignore
-              const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+              const bsOffcanvas =
+                bootstrap.Offcanvas.getInstance(offcanvasElement);
               if (bsOffcanvas) bsOffcanvas.hide();
             }
 
             // Scroll to target
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-            
+            targetElement.scrollIntoView({ behavior: "smooth" });
+
             // Update URL hash without reload
-            history.pushState(null, '', `#${anchorId}`);
+            history.pushState(null, "", `#${anchorId}`);
           } else {
             // Cross-page navigation: default behavior, but help mobile
             if (window.innerWidth < 992 && offcanvasElement) {
               // @ts-ignore
-              const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+              const bsOffcanvas =
+                bootstrap.Offcanvas.getInstance(offcanvasElement);
               if (bsOffcanvas) bsOffcanvas.hide();
             }
           }
@@ -245,8 +319,8 @@ const isCaseStudy = pathname.includes("/case-study");
   }
 
   // Initialize on load
-  document.addEventListener('DOMContentLoaded', setupNavigation);
-  
+  document.addEventListener("DOMContentLoaded", setupNavigation);
+
   // Also handle page load for future Astro transitions compatibility
-  document.addEventListener('astro:page-load', setupNavigation);
+  document.addEventListener("astro:page-load", setupNavigation);
 </script>
